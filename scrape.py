@@ -1,3 +1,4 @@
+#!venv/bin/python
 import bs4
 import requests
 import itertools
@@ -41,11 +42,11 @@ def main(cmd_line):
         )
         if data.status_code == 200:
             soup = bs4.BeautifulSoup(data.text, features="html.parser")
-            table = soup.find("table", {"class": ["wikitable", "sortable", "list", "jquery-tablesorter"]})
+            table = soup.find("table", {"class": ["wikitable"]})
             out_data = []
             for i, row in enumerate(table.find("tbody").find_all("tr")):
 
-                # skip first row because tbody selector not skipping thead
+                # skip first row because tbody has the header in it
                 if i:
                     this_out_row = {}
                     for j, col in enumerate(row.find_all(recursive=False)):
